@@ -11,144 +11,131 @@
             --bg: #050505;
             --text-main: #ffffff;
             --text-muted: #888888;
-            --accent: #ffffff;
-            --glass: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.08);
             --green: #22c55e;
             --green-soft: rgba(34, 197, 94, 0.15);
-            --green-soft-border: rgba(34, 197, 94, 0.5);
+            --green-soft-border: rgba(34, 197, 94, 0.4);
             --red: #ff0044;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             background-color: var(--bg);
+            margin: 0;
+            font-family: "Manrope", sans-serif;
             color: var(--text-main);
-            font-family: 'Manrope', sans-serif;
-            overflow-x: hidden;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
-        /* --- BACKGROUND EFFECTS --- */
+        /* Background FX */
         .ambient-light {
             position: fixed;
             top: 50%; left: 50%;
             width: 150vw; height: 150vw;
-            background: radial-gradient(circle, rgba(60, 20, 180, 0.15) 0%, rgba(0,0,0,0) 60%);
+            background: radial-gradient(circle, rgba(60,20,180,0.15), transparent 70%);
             transform: translate(-50%, -50%);
             z-index: -2;
-            animation: pulse-light 10s infinite alternate;
+            animation: pulse 12s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.1; transform: translate(-50%, -50%) scale(1);}
+            100% { opacity: 0.2; transform: translate(-50%, -50%) scale(1.15);}
         }
 
         .noise-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            position: fixed;
+            inset: 0;
             background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
             z-index: -1;
             pointer-events: none;
         }
 
-        /* --- LAYOUT --- */
         .wrapper {
             max-width: 1400px;
-            margin: 0 auto;
+            margin: auto;
             padding: 4rem 2rem;
-            width: 100%;
-            position: relative;
-            z-index: 2;
-            flex: 1;
         }
 
-        /* --- HEADER --- */
+        /* Header */
         nav {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 6rem;
-            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
             padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 4rem;
         }
 
         .brand {
-            font-family: 'Syncopate', sans-serif;
-            font-weight: 700;
-            text-transform: uppercase;
+            font-family: "Syncopate", sans-serif;
             letter-spacing: 2px;
-            font-size: 1.2rem;
+            font-weight: 700;
+            font-size: 1.3rem;
         }
 
         .live-indicator {
-            display: flex; align-items: center; gap: 12px;
-            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted);
-        }
-        .pulse-dot { 
-            width: 8px; height: 8px; 
-            background: var(--green); 
-            border-radius: 50%; 
-            box-shadow: 0 0 12px var(--green);
-            animation: pulse-glow 2s infinite;
+            display: flex;
+            align-items: center;
+            color: var(--text-muted);
+            gap: 10px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
         }
 
-        @keyframes pulse-glow {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.1); }
+        .pulse-dot {
+            width: 9px;
+            height: 9px;
+            background: var(--green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--green);
+            animation: liveBlink 1.7s infinite ease-in-out;
         }
 
-        /* --- HERO SECTION --- */
-        .hero {
-            margin-bottom: 2.5rem;
+        @keyframes liveBlink {
+            0%,100% { opacity: 1; transform: scale(1);}
+            50% { opacity: .6; transform: scale(1.15);}
         }
 
+        /* Hero */
         h1 {
-            font-family: 'Manrope', sans-serif;
+            font-size: 3rem;
             font-weight: 300;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            line-height: 1.1;
-            letter-spacing: -1px;
-            background: linear-gradient(to right, #fff, #888);
+            background: linear-gradient(to right, #fff, #777);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 1rem;
         }
 
         .hero-desc {
-            font-size: 1rem; 
-            color: var(--text-muted); 
-            line-height: 1.8;
+            color: var(--text-muted);
             max-width: 600px;
+            line-height: 1.8;
         }
 
-        /* --- SECTION HEADERS --- */
+        /* Section Title */
         .section-header {
-            font-family: 'Syncopate', sans-serif;
+            font-family: "Syncopate";
+            color: var(--text-muted);
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: var(--text-muted);
-            margin: 3rem 0 1.2rem 0;
-            padding-bottom: 0.8rem;
             border-bottom: 1px solid var(--border);
+            margin: 2.5rem 0 1.5rem;
+            padding-bottom: 10px;
         }
 
-        .section-header:first-of-type {
-            margin-top: 1.5rem;
-        }
-
-        /* --- NETWORK TABLE STYLE (POLKACHU-LIKE) --- */
+        /* Table */
         .net-table {
-            width: 100%;
-            border-radius: 10px;
-            overflow: hidden;
             border: 1px solid var(--border);
-            background: rgba(255, 255, 255, 0.01);
+            border-radius: 12px;
+            overflow: hidden;
         }
 
         .net-row {
-            display: flex;
+            display: grid;
+            grid-template-columns: 160px 1fr 110px;
             align-items: center;
-            gap: 1.5rem;
-            padding: 0.85rem 1.5rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 1rem 1.5rem;
+            gap: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         .net-row:last-child {
@@ -156,252 +143,162 @@
         }
 
         .net-name {
-            min-width: 120px;
-            font-size: 0.95rem;
-            color: var(--text-main);
+            font-size: 1.05rem;
         }
 
+        /* Bars */
         .uptime-bars {
-            flex: 1;
             display: flex;
-            align-items: center;
             gap: 2px;
-            justify-content: flex-start;
         }
 
         .uptime-bar {
             width: 3px;
             height: 22px;
-            border-radius: 999px;
             background: var(--green);
-            opacity: 0.9;
-            transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+            border-radius: 999px;
+            transition: 0.2s;
         }
 
         .uptime-bar.down {
             background: var(--red);
-            opacity: 1;
         }
 
         .uptime-bar:hover {
-            transform: scaleY(1.25);
-            opacity: 1;
+            transform: scaleY(1.3);
         }
 
+        /* Stake BTN */
         .stake-btn {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 0.7rem;
+            font-family: "Syncopate";
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 1.3px;
-            padding: 0.45rem 1.3rem;
-            border-radius: 999px;
+            padding: 0.45rem 1.2rem;
+            border-radius: 50px;
             border: 1px solid var(--green-soft-border);
             background: var(--green-soft);
             color: #bbf7d0;
             cursor: pointer;
             white-space: nowrap;
-            transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+            justify-self: end;
         }
 
         .stake-btn:hover {
-            background: rgba(34, 197, 94, 0.25);
-            transform: translateY(-1px);
-            box-shadow: 0 0 15px rgba(34, 197, 94, 0.25);
+            background: rgba(34,197,94,0.25);
+            box-shadow: 0 0 15px rgba(34,197,94,0.3);
         }
 
-        .stake-btn:active {
-            transform: translateY(0);
-            box-shadow: none;
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 2rem;
-            text-align: center;
-            font-size: 0.75rem;
-            color: #333;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 4rem;
-        }
-
-        /* --- ANIMATIONS --- */
-        @keyframes pulse-light {
-            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.1; }
-            100% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.2; }
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeUp 1s ease forwards;
-        }
-
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; }
-
-        @keyframes fadeUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
-            .wrapper { padding: 2rem 1.5rem; }
-            nav { margin-bottom: 3rem; }
+        @media (max-width: 600px) {
             .net-row {
-                flex-wrap: wrap;
-                gap: 0.75rem;
-            }
-            .net-name {
-                width: 100%;
-            }
-            .uptime-bars {
-                order: 3;
-                width: 100%;
-                justify-content: flex-start;
+                grid-template-columns: 120px 1fr 80px;
+                padding: 0.9rem 1rem;
             }
         }
     </style>
 </head>
+
 <body>
 
-    <div class="noise-overlay"></div>
-    <div class="ambient-light"></div>
+<div class="ambient-light"></div>
+<div class="noise-overlay"></div>
 
-    <div class="wrapper">
-        
-        <nav class="fade-in">
-            <div class="brand">killerwhales_user</div>
-            <div class="live-indicator">
-                <div class="pulse-dot"></div>
-                Live Monitoring
-            </div>
-        </nav>
+<div class="wrapper">
 
-        <section class="hero fade-in delay-1">
-            <h1>Network Uptime Monitor</h1>
-            <p class="hero-desc">
-                Real-time monitoring of validator infrastructure across multiple blockchain networks. 
-                Data refreshes automatically every 30 seconds.
-            </p>
-        </section>
+    <nav>
+        <div class="brand">KILLERWHALES_USER</div>
+        <div class="live-indicator">
+            <div class="pulse-dot"></div> Live Monitoring
+        </div>
+    </nav>
 
-        <!-- MONITOR TABLES (POLKACHU STYLE) -->
-        <section class="fade-in delay-2">
-            <!-- MAINNET -->
-            <h2 class="section-header">Mainnet</h2>
-            <div class="net-table" id="mainnetTable"></div>
+    <section>
+        <h1>Network Uptime Monitor</h1>
+        <p class="hero-desc">
+            Real-time monitoring of validator infrastructure across multiple blockchain networks. 
+            Data refreshes automatically every 30 seconds.
+        </p>
+    </section>
 
-            <!-- TESTNET -->
-            <h2 class="section-header">Testnet</h2>
-            <div class="net-table" id="testnetTable"></div>
+    <!-- MAINNET -->
+    <h2 class="section-header">Mainnet</h2>
+    <div class="net-table" id="mainnetTable"></div>
 
-            <!-- PENDING -->
-            <h2 class="section-header">Pending Networks</h2>
-            <div class="net-table" id="pendingTable"></div>
-        </section>
+    <!-- TESTNET -->
+    <h2 class="section-header">Testnet</h2>
+    <div class="net-table" id="testnetTable"></div>
 
-    </div>
+    <!-- PENDING -->
+    <h2 class="section-header">Pending</h2>
+    <div class="net-table" id="pendingTable"></div>
 
-    <footer>
-        KILLERWHALES_USER INFRASTRUCTURE © 2025
-    </footer>
+</div>
 
-    <script>
-        // Dữ liệu network
-        const mainnetNetworks = [
-            { name: 'Paxi', uptime: 99.9 },
-            { name: 'Lava', uptime: 99.8 },
-            { name: 'BitBadgesChain', uptime: 99.7 }
-        ];
+<script>
+const TOTAL_BARS = 60;
 
-        const testnetNetworks = [
-            { name: 'Lumera', uptime: 99.6 },
-            { name: 'Empeiria', uptime: 99.8 }
-        ];
+const mainnet = [
+    { name: "Paxi", uptime: 99.9 },
+    { name: "Lava", uptime: 99.8 },
+    { name: "BitBadgesChain", uptime: 99.7 }
+];
 
-        const pendingNetworks = [
-            { name: 'Kiichain', uptime: 99.0 },
-            { name: 'Warden', uptime: 98.5 }
-        ];
+const testnet = [
+    { name: "Lumera", uptime: 99.8 },
+    { name: "Empeiria", uptime: 99.9 }
+];
 
-        const TOTAL_BARS = 60;
+const pending = [
+    { name: "Kiichain", uptime: 98.8 },
+    { name: "Warden", uptime: 97.5 }
+];
 
-        function renderAll() {
-            renderTable('mainnetTable', mainnetNetworks);
-            renderTable('testnetTable', testnetNetworks);
-            renderTable('pendingTable', pendingNetworks);
+function renderTable(id, networks) {
+    const table = document.getElementById(id);
+    table.innerHTML = "";
+
+    networks.forEach(net => {
+        const row = document.createElement("div");
+        row.className = "net-row";
+
+        const name = document.createElement("div");
+        name.className = "net-name";
+        name.textContent = net.name;
+
+        const bars = document.createElement("div");
+        bars.className = "uptime-bars";
+
+        const downBars = Math.floor(TOTAL_BARS * (1 - net.uptime / 100));
+        const downIndexes = new Set();
+        while (downIndexes.size < downBars) {
+            downIndexes.add(Math.floor(Math.random() * TOTAL_BARS));
         }
 
-        function renderTable(containerId, networks) {
-            const table = document.getElementById(containerId);
-            table.innerHTML = '';
-
-            networks.forEach(net => {
-                const row = document.createElement('div');
-                row.className = 'net-row';
-
-                const name = document.createElement('div');
-                name.className = 'net-name';
-                name.textContent = net.name;
-
-                const uptimeBars = document.createElement('div');
-                uptimeBars.className = 'uptime-bars';
-                fillUptimeBars(uptimeBars, net.uptime);
-
-                const stake = document.createElement('button');
-                stake.className = 'stake-btn';
-                stake.textContent = 'Stake';
-
-                row.appendChild(name);
-                row.appendChild(uptimeBars);
-                row.appendChild(stake);
-
-                table.appendChild(row);
-            });
+        for (let i = 0; i < TOTAL_BARS; i++) {
+            const bar = document.createElement("div");
+            bar.className = "uptime-bar";
+            if (downIndexes.has(i)) bar.classList.add("down");
+            bars.appendChild(bar);
         }
 
-        function fillUptimeBars(container, uptimePercentage) {
-            container.innerHTML = '';
+        const stake = document.createElement("button");
+        stake.className = "stake-btn";
+        stake.textContent = "Stake";
 
-            const downBars = Math.max(
-                0,
-                Math.floor(TOTAL_BARS * (1 - uptimePercentage / 100))
-            );
+        row.appendChild(name);
+        row.appendChild(bars);
+        row.appendChild(stake);
+        table.appendChild(row);
+    });
+}
 
-            const downIndices = new Set();
-            while (downIndices.size < downBars) {
-                downIndices.add(Math.floor(Math.random() * TOTAL_BARS));
-            }
+function renderAll() {
+    renderTable("mainnetTable", mainnet);
+    renderTable("testnetTable", testnet);
+    renderTable("pendingTable", pending);
+}
 
-            for (let i = 0; i < TOTAL_BARS; i++) {
-                const bar = document.createElement('div');
-                bar.className = 'uptime-bar';
-                if (downIndices.has(i)) {
-                    bar.classList.add('down');
-                }
-                container.appendChild(bar);
-            }
-        }
-
-        // Tạo bảng khi load trang
-        renderAll();
-
-        // Giả lập cập nhật dữ liệu mỗi 30 giây giống mô tả
-        setInterval(() => {
-            [mainnetNetworks, testnetNetworks, pendingNetworks].forEach(list => {
-                list.forEach(net => {
-                    // dao động nhỏ quanh giá trị hiện tại
-                    const variation = (Math.random() - 0.5) * 0.4;
-                    net.uptime = Math.max(95, Math.min(100, net.uptime + variation));
-                });
-            });
-            renderAll();
-        }, 30000);
-    </script>
+renderAll();
+</script>
 
 </body>
 </html>
