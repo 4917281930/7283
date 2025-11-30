@@ -63,9 +63,10 @@
 
         /* --- HEADER --- */
         nav {
-            display: flex; justify-content: space-between; align-items: center;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
             margin-bottom: 6rem;
-            border-bottom: 1px solid var(--border);
             padding-bottom: 1.5rem;
         }
 
@@ -125,9 +126,7 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--text-muted);
-            margin: 3rem 0 1.2rem 0;
-            padding-bottom: 0.8rem;
-            border-bottom: 1px solid var(--border);
+            margin: 2rem 0 0.8rem 0;
         }
 
         .section-header:first-of-type {
@@ -137,6 +136,7 @@
         /* --- NETWORK TABLE STYLE (NO BORDER BOX) --- */
         .net-table {
             width: 100%;
+            margin-bottom: 2rem;
         }
 
         .net-row {
@@ -145,11 +145,6 @@
             align-items: center;
             gap: 1.5rem;
             padding: 0.85rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-        }
-
-        .net-row:last-child {
-            border-bottom: none;
         }
 
         .net-row.pending {
@@ -216,7 +211,6 @@
 
         /* --- FOOTER --- */
         footer {
-            border-top: 1px solid var(--border);
             padding: 2rem;
             text-align: center;
             font-size: 0.75rem;
