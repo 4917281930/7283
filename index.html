@@ -144,7 +144,8 @@
         }
 
         .net-row {
-            display: flex;
+            display: grid;
+            grid-template-columns: 150px 1fr auto;
             align-items: center;
             gap: 1.5rem;
             padding: 0.85rem 1.5rem;
@@ -155,14 +156,17 @@
             border-bottom: none;
         }
 
+        .net-row.pending {
+            grid-template-columns: 1fr;
+            justify-items: start;
+        }
+
         .net-name {
-            min-width: 120px;
             font-size: 0.95rem;
             color: var(--text-main);
         }
 
         .uptime-bars {
-            flex: 1;
             display: flex;
             align-items: center;
             gap: 2px;
@@ -252,16 +256,12 @@
             .wrapper { padding: 2rem 1.5rem; }
             nav { margin-bottom: 3rem; }
             .net-row {
-                flex-wrap: wrap;
-                gap: 0.75rem;
+                grid-template-columns: 120px 1fr auto;
+                gap: 1rem;
             }
-            .net-name {
-                width: 100%;
-            }
-            .uptime-bars {
-                order: 3;
-                width: 100%;
-                justify-content: flex-start;
+            .stake-btn {
+                padding: 0.4rem 1rem;
+                font-size: 0.65rem;
             }
         }
     </style>
@@ -339,26 +339,29 @@
         function renderTable(containerId, networks) {
             const table = document.getElementById(containerId);
             table.innerHTML = '';
+            const isPending = containerId === 'pendingTable';
 
             networks.forEach(net => {
                 const row = document.createElement('div');
                 row.className = 'net-row';
+                if (isPending) row.classList.add('pending');
 
                 const name = document.createElement('div');
                 name.className = 'net-name';
                 name.textContent = net.name;
-
-                const uptimeBars = document.createElement('div');
-                uptimeBars.className = 'uptime-bars';
-                fillUptimeBars(uptimeBars, net.uptime);
-
-                const stake = document.createElement('button');
-                stake.className = 'stake-btn';
-                stake.textContent = 'Stake';
-
                 row.appendChild(name);
-                row.appendChild(uptimeBars);
-                row.appendChild(stake);
+
+                if (!isPending) {
+                    const uptimeBars = document.createElement('div');
+                    uptimeBars.className = 'uptime-bars';
+                    fillUptimeBars(uptimeBars, net.uptime);
+                    row.appendChild(uptimeBars);
+
+                    const stake = document.createElement('button');
+                    stake.className = 'stake-btn';
+                    stake.textContent = 'Stake';
+                    row.appendChild(stake);
+                }
 
                 table.appendChild(row);
             });
