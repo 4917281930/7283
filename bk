@@ -63,9 +63,10 @@
 
         /* --- HEADER --- */
         nav {
-            display: flex; justify-content: space-between; align-items: center;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
             margin-bottom: 6rem;
-            border-bottom: 1px solid var(--border);
             padding-bottom: 1.5rem;
         }
 
@@ -125,44 +126,38 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--text-muted);
-            margin: 3rem 0 1.2rem 0;
-            padding-bottom: 0.8rem;
-            border-bottom: 1px solid var(--border);
+            margin: 2rem 0 0.8rem 0;
         }
 
         .section-header:first-of-type {
             margin-top: 1.5rem;
         }
 
-        /* --- NETWORK TABLE STYLE (POLKACHU-LIKE) --- */
+        /* --- NETWORK TABLE STYLE (NO BORDER BOX) --- */
         .net-table {
             width: 100%;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            background: rgba(255, 255, 255, 0.01);
+            margin-bottom: 2rem;
         }
 
         .net-row {
-            display: flex;
+            display: grid;
+            grid-template-columns: 150px 1fr auto;
             align-items: center;
             gap: 1.5rem;
-            padding: 0.85rem 1.5rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 0.85rem 0;
         }
 
-        .net-row:last-child {
-            border-bottom: none;
+        .net-row.pending {
+            grid-template-columns: 1fr;
+            justify-items: start;
         }
 
         .net-name {
-            min-width: 120px;
             font-size: 0.95rem;
             color: var(--text-main);
         }
 
         .uptime-bars {
-            flex: 1;
             display: flex;
             align-items: center;
             gap: 2px;
@@ -216,14 +211,16 @@
 
         /* --- FOOTER --- */
         footer {
-            border-top: 1px solid var(--border);
             padding: 2rem;
             text-align: center;
             font-size: 0.75rem;
-            color: #333;
+            color: #888;
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-top: 4rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         /* --- ANIMATIONS --- */
@@ -252,16 +249,24 @@
             .wrapper { padding: 2rem 1.5rem; }
             nav { margin-bottom: 3rem; }
             .net-row {
-                flex-wrap: wrap;
-                gap: 0.75rem;
+                grid-template-columns: 100px 1fr auto;
+                gap: 0.8rem;
+                padding: 1rem 0;
             }
             .net-name {
-                width: 100%;
+                font-size: 0.9rem;
             }
             .uptime-bars {
-                order: 3;
-                width: 100%;
-                justify-content: flex-start;
+                gap: 1.5px;
+            }
+            .uptime-bar {
+                width: 2.5px;
+                height: 20px;
+            }
+            .stake-btn {
+                padding: 0.4rem 0.9rem;
+                font-size: 0.6rem;
+                letter-spacing: 1px;
             }
         }
     </style>
@@ -289,7 +294,7 @@
             </p>
         </section>
 
-        <!-- MONITOR TABLES (POLKACHU STYLE) -->
+        <!-- MONITOR TABLES (NO BORDER STYLE) -->
         <section class="fade-in delay-2">
             <!-- MAINNET -->
             <h2 class="section-header">Mainnet</h2>
@@ -307,7 +312,7 @@
     </div>
 
     <footer>
-        KILLERWHALES_USER INFRASTRUCTURE © 2025
+        KILLERWHALES_USER INFRASTRUCTURE
     </footer>
 
     <script>
@@ -339,26 +344,29 @@
         function renderTable(containerId, networks) {
             const table = document.getElementById(containerId);
             table.innerHTML = '';
+            const isPending = containerId === 'pendingTable';
 
             networks.forEach(net => {
                 const row = document.createElement('div');
                 row.className = 'net-row';
+                if (isPending) row.classList.add('pending');
 
                 const name = document.createElement('div');
                 name.className = 'net-name';
                 name.textContent = net.name;
-
-                const uptimeBars = document.createElement('div');
-                uptimeBars.className = 'uptime-bars';
-                fillUptimeBars(uptimeBars, net.uptime);
-
-                const stake = document.createElement('button');
-                stake.className = 'stake-btn';
-                stake.textContent = 'Stake';
-
                 row.appendChild(name);
-                row.appendChild(uptimeBars);
-                row.appendChild(stake);
+
+                if (!isPending) {
+                    const uptimeBars = document.createElement('div');
+                    uptimeBars.className = 'uptime-bars';
+                    fillUptimeBars(uptimeBars, net.uptime);
+                    row.appendChild(uptimeBars);
+
+                    const stake = document.createElement('button');
+                    stake.className = 'stake-btn';
+                    stake.textContent = 'Stake';
+                    row.appendChild(stake);
+                }
 
                 table.appendChild(row);
             });
