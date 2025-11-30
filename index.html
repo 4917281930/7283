@@ -134,13 +134,9 @@
             margin-top: 1.5rem;
         }
 
-        /* --- NETWORK TABLE STYLE (POLKACHU-LIKE) --- */
+        /* --- NETWORK TABLE STYLE (NO BORDER BOX) --- */
         .net-table {
             width: 100%;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            background: rgba(255, 255, 255, 0.01);
         }
 
         .net-row {
@@ -148,7 +144,7 @@
             grid-template-columns: 150px 1fr auto;
             align-items: center;
             gap: 1.5rem;
-            padding: 0.85rem 1.5rem;
+            padding: 0.85rem 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
         }
 
@@ -256,12 +252,24 @@
             .wrapper { padding: 2rem 1.5rem; }
             nav { margin-bottom: 3rem; }
             .net-row {
-                grid-template-columns: 120px 1fr auto;
-                gap: 1rem;
+                grid-template-columns: 100px 1fr auto;
+                gap: 0.8rem;
+                padding: 1rem 0;
+            }
+            .net-name {
+                font-size: 0.9rem;
+            }
+            .uptime-bars {
+                gap: 1.5px;
+            }
+            .uptime-bar {
+                width: 2.5px;
+                height: 20px;
             }
             .stake-btn {
-                padding: 0.4rem 1rem;
-                font-size: 0.65rem;
+                padding: 0.4rem 0.9rem;
+                font-size: 0.6rem;
+                letter-spacing: 1px;
             }
         }
     </style>
@@ -289,7 +297,7 @@
             </p>
         </section>
 
-        <!-- MONITOR TABLES (POLKACHU STYLE) -->
+        <!-- MONITOR TABLES (NO BORDER STYLE) -->
         <section class="fade-in delay-2">
             <!-- MAINNET -->
             <h2 class="section-header">Mainnet</h2>
